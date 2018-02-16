@@ -32,4 +32,5 @@ Also, future home of the UML diagram.
 Coming soon to a README near you!
 
 # Contribution Guidelines
-Please see review our contribution guidelines: [here](CONTRIBUTING.md)
+Please review our contribution guidelines: [here](CONTRIBUTING.md)
+PLease review our Code of Conduct requirements: [here](CODE_OF_CONDUCT.md)
