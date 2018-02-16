@@ -4,25 +4,7 @@ For those wishing to contribute to this project once the doors open,
 the following simple guidlines can help to keep us all on the same page.
 
 ## Pull Requests and Commit Messages
-
-Pull requests and commit messages should appear as follows: *`<identifier> <message text>`*
-
-**Mx:** Milestone Number
-
-**Sx:** Sprint Number
-
-**Fx:** Feature followed by the feature number
-
-**Bx:** Bug followed by the bug number
-
-### Examples
-*M2 Added user stories for parents*
-
-*S1 B2006 added bounds checking to string input*
-
-*S5 F1887 Added user feedback system to main application form*
-
-**Please make sure to include some information about what you did in your pull request!** 
+Please review our requirements: [here](PULL_REQUEST_TEMPLATE.md)
 
 ## Branch Names
 Branch names should be the identifier followed by the bug and feature number and the team members first initial of their first name. These should all be lower case. Branch names should be in all lowercase with no spaces in the following format: `<identifier>-<team member first initial>`
