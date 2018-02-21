@@ -22,11 +22,9 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 # Mind Map 
 <!-- Image Here --> 
  
-# Needs, Features, Requirements, Risks 
-## Needs 
-<!-- Text Here --> 
+# Needs/Features, Requirements, & Risks 
  
-## Features 
+## Needs/Features 
 <!-- Text Here --> 
  
 ## Requirements 
