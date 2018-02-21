@@ -155,6 +155,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Have to learn how to deploy a mobile app with a cloud-based backend
 * Have to learn how to authenticate a user to my app and tie that profile to a Spotify account
 * Have to learn how to properly utilize the Spotify API (possibly the SDK)
+* Familiarize with ASP.NET Web API 2.2 including authentication
  
 # Modeling Artifacts 
 ## Architecture Diagram 
