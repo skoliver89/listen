@@ -13,7 +13,7 @@ Discover life's soundtrack.
 # Vision Statement 
 For music lovers who do not have Facebook, the listen app is a social media platform to share what you are currently listening to, your playlists and favorite songs, artists, and/or genres. Unlike the current system utilizing Facebook accounts, users will have the option to remain anonymous. Also, unlike the current system your Spotify account credentials will not rely on your listen account; This means that a user can freely remove their listen account and still retain the same Spotify account. 
  
-# Needs/Features, Requirements, & Risks 
+# Needs/Features, Requirements & Risks 
  
 ## Needs/Features
 * New users can create an account
