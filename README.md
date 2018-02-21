@@ -1,9 +1,3 @@
-
-# Purpose 
-This project's purpose is to fulfill my Senior Capstone's individual project  
-requirement at Western Oregon University. I am not currently accepting outside 
-contributions but feel free to fork the repository and create anything you like.
- 
 # Basic Project Information 
 * Project Name: listen 
 * Author Name: Stephen K Oliver 
