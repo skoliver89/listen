@@ -175,7 +175,7 @@ Coming soon to a README near you!
 ## All Contributors must review with and adhere to the following: 
 * Please review our contribution requirements: [here](CONTRIBUTING.md) 
 * Please review our Code of Conduct requirements: [here](CODE_OF_CONDUCT.md) 
-* Please review our Pull Request Template requirements: [here]() 
+* Please review our Pull Request Template requirements: [here](PULL_REQUEST_TEMPLATE.md) 
  
 # Tentative Timeline/Release Plan 
 <!-- Image Here -->
