@@ -40,9 +40,14 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 <!-- image here --> 
  
 ## Use-Case Diagram 
-<!-- image here --> 
+<!-- image here -->
+
+## ER Diagram
+<!-- Image Here -->
+Coming soon to a README near you!
  
-## UML (Class) Diagram 
+## UML (Class) Diagram
+<!-- Image Here -->
 Coming soon to a README near you! 
  
 # Contribution Guidelines 
