@@ -22,16 +22,24 @@
 * Version Date: \<TBA\>
 * VSTS Site (Product Backlog): https://skoliver14.visualstudio.com/listen 
 * APP Download Link: \<TBA\> 
-* Accepting Outside Contributions: No 
+* Accepting Outside Contributions: No
+
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
  
 # Moto 
 Discover life's soundtrack. 
  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 # Vision Statement 
 For music lovers who do not have Facebook, the listen app is a social media platform to share what you are currently listening to, your playlists and favorite songs, artists, and/or genres. Unlike the current system utilizing Facebook accounts, users will have the option to remain anonymous. Also, unlike the current system your Spotify account credentials will not rely on your listen account; This means that a user can freely remove their listen account and still retain the same Spotify account. 
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 # Needs/Features, Requirements & Risks 
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 ## Needs/Features
 * New users can create an account
 * Users can edit their account (Username, password, etc.)
@@ -64,7 +72,9 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Administrators can delete reported content and users
 * Administrators can send system messages to one or more users
 <!-- More Needs/Features Here As Required -->
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 ## Requirements
 * Authentication
   * Main App account: ASP.NET Web API 2.2 Authentication
@@ -143,6 +153,8 @@ For music lovers who do not have Facebook, the listen app is a social media plat
     * Report Title and action taken, if any
   * Resolution buttons (i.e. No Action Required, Delete Content, Suspend User, Delete User, ETC)
 <!-- More Requirements Here As Required -->
+ 
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## Non-Functional Requirements
 * Storage Requirements
@@ -165,7 +177,9 @@ For music lovers who do not have Facebook, the listen app is a social media plat
   * Valid E-mail account
   * Access to data network/wi-fi
 <!-- More Non-Functional Requirements Here As Required -->
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 ## Risks 
 * Have to learn the Android Development Framework
 * Have to learn Kotlin Language
@@ -173,31 +187,44 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Have to learn how to authenticate a user to my app and tie that profile to a Spotify account
 * Have to learn how to properly utilize the Spotify API (possibly the SDK)
 * Familiarize with ASP.NET Web API 2.2 including authentication
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 # Modeling Artifacts 
 ## Architecture Diagram 
 <!-- Image Here -->
 Coming soon to a README near you! 
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 ## Use-Case Diagram 
 <!-- Image Here -->
 Coming soon to a README near you!
+ 
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## ER Diagram
 <!-- Image Here -->
 Coming soon to a README near you!
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 ## UML (Class) Diagram
 <!-- Image Here -->
 Coming soon to a README near you!
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 # Contribution Guidelines 
 ## All Contributors must review with and adhere to the following: 
 * Please review our contribution requirements: [here](CONTRIBUTING.md) 
 * Please review our Code of Conduct requirements: [here](CODE_OF_CONDUCT.md) 
 * Please review our Pull Request Template requirements: [here](PULL_REQUEST_TEMPLATE.md) 
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
 # Tentative Timeline/Release Plan 
 <!-- Image Here -->
 Coming soon to a README near you!
- 
+  
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
