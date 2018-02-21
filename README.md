@@ -159,10 +159,12 @@ For music lovers who do not have Facebook, the listen app is a social media plat
  
 # Modeling Artifacts 
 ## Architecture Diagram 
-<!-- image here --> 
+<!-- Image Here -->
+Coming soon to a README near you! 
  
 ## Use-Case Diagram 
-<!-- image here -->
+<!-- Image Here -->
+Coming soon to a README near you!
 
 ## ER Diagram
 <!-- Image Here -->
