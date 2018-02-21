@@ -15,29 +15,29 @@
 6. [Contribution Guidelines](https://github.com/skoliver89/listen#contribution-guidelines)
 7. [Tentative Timeline/Release Plan](https://github.com/skoliver89/listen#tentative-timelinerelease-plan)
 
-# Basic Project Information 
-* Project Name: listen 
-* Author Name: Stephen K Oliver 
-* Version Number: 0.1a 
+# Basic Project Information
+* Project Name: listen
+* Author Name: Stephen K Oliver
+* Version Number: 0.1a
 * Version Date: \<TBA\>
-* VSTS Site (Product Backlog): https://skoliver14.visualstudio.com/listen 
-* APP Download Link: \<TBA\> 
+* VSTS Site (Product Backlog): https://skoliver14.visualstudio.com/listen
+* APP Download Link: \<TBA\>
 * Accepting Outside Contributions: No
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
- 
-# Moto 
-Discover life's soundtrack. 
- 
+
+# Moto
+Discover life's soundtrack.
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-# Vision Statement 
-For music lovers who do not have Facebook, the listen app is a social media platform to share what you are currently listening to, your playlists and favorite songs, artists, and/or genres. Unlike the current system utilizing Facebook accounts, users will have the option to remain anonymous. Also, unlike the current system your Spotify account credentials will not rely on your listen account; This means that a user can freely remove their listen account and still retain the same Spotify account. 
-  
+# Vision Statement
+For music lovers who do not have Facebook, the listen app is a social media platform to share what you are currently listening to, your playlists and favorite songs, artists, and/or genres. Unlike the current system utilizing Facebook accounts, users will have the option to remain anonymous. Also, unlike the current system your Spotify account credentials will not rely on your listen account; This means that a user can freely remove their listen account and still retain the same Spotify account.
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-# Needs/Features, Requirements & Risks 
-  
+# Needs/Features, Requirements & Risks
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## Needs/Features
@@ -72,7 +72,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Administrators can delete reported content and users
 * Administrators can send system messages to one or more users
 <!-- More Needs/Features Here As Required -->
-  
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## Requirements
@@ -86,14 +86,14 @@ For music lovers who do not have Facebook, the listen app is a social media plat
   * Username (requires re-authentication)
   * Email account (requires re-authentication)
   * Password (requires re-authentication)
-  * Timezone; advanced future feature. Listen will use Zulu (GMT) time by default.
+  * Time zone; advanced future feature. Listen will use Zulu (GMT) time by default.
   * Time format (i.e. 1300 or 1:00pm); advanced future feature. Listen will use the standard am/pm format by default.
 * Other required account items (Non-editable)
-  * Spotify userID/OAUTH credentials
+  * Spotify user ID/OAUTH credentials
   * Authentication token
 * User Profile feature requirements
   * Header: Username
-  * SubHeader: The song that the user is currently listening to, if any
+  * Sub Header: The song that the user is currently listening to, if any
   * Body1: (optional) Bio & a list of their ten most recent posts
   * Body2: Favorite Song & Main/Selected playlist
 * Viewing a friend's profile feature requirements
@@ -103,11 +103,11 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Friends list feature requirements
   * Alphabetized list of current friends
   * The songs friends are currently listening to
-  * Should be tapable to open the messaging window
+  * Should be tap-able to open the messaging window
   * Indication of a new message from a friend(s)
   * Online/Offline Status; advanced future feature
 * User Messaging Window
-  * Header: tapable username pointing to selected friend's profile
+  * Header: tap-able username pointing to selected friend's profile
     * Have a button to flag the profile for inappropriate/offensive content (Report)
   * Body: Historical list of messages, newest on bottom (limit most recent 50 for now)
   * Footer: text input box & send button
@@ -137,10 +137,10 @@ For music lovers who do not have Facebook, the listen app is a social media plat
   * Their stream of posts from friends
   * Their friend's profiles (same content/layout as their profile)
   * Messages from their friends
-* Handling administrators not yet autheticated
+* Handling administrators not yet authenticated
   * redirect to log in prompt
 * What authenticated administrators can see
-  * A list of unreviewed reports (tapable/selectable)
+  * A list of pending review reports (tap-able/selectable)
   * A list of their closed reports (up to 30 days)
   * Selected reported content and/or user data to include user report message and reported content/user
   * A console to send system messages
@@ -153,17 +153,17 @@ For music lovers who do not have Facebook, the listen app is a social media plat
     * Report Title and action taken, if any
   * Resolution buttons (i.e. No Action Required, Delete Content, Suspend User, Delete User, ETC)
 <!-- More Requirements Here As Required -->
- 
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## Non-Functional Requirements
 * Storage Requirements
-  * Local DB to store currently visable data (optimize look up and reduce strain on API server)
+  * Local DB to store currently visible data (optimize look up and reduce strain on API server)
 * User Access Controls
   * ASP.NET Web API 2.2 Authentication (main)
   * Possibly add in Spotify OAUTH as required
 * Database System
-  * MS SQL hosted in Mircosoft Azure
+  * MS SQL hosted in Microsoft Azure
   * Contains:
     * Authentication/User Account Table
     * User Profile Table
@@ -173,58 +173,58 @@ For music lovers who do not have Facebook, the listen app is a social media plat
     * Admin Actions Log Table
 * Other
   * Android Smartphone with touch capabilities (OS version Kit-Kat 4.4 or better)
-  * Spotify account (may require premium, futher research required)
+  * Spotify account (may require premium, further research required)
   * Valid E-mail account
-  * Access to data network/wi-fi
+  * Access to data network/Wi-Fi
 <!-- More Non-Functional Requirements Here As Required -->
-  
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-## Risks 
+## Risks
 * Have to learn the Android Development Framework
 * Have to learn Kotlin Language
 * Have to learn how to deploy a mobile app with a cloud-based backend
 * Have to learn how to authenticate a user to my app and tie that profile to a Spotify account
 * Have to learn how to properly utilize the Spotify API (possibly the SDK)
 * Familiarize with ASP.NET Web API 2.2 including authentication
-  
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-# Modeling Artifacts 
-## Architecture Diagram 
-<!-- Image Here -->
-Coming soon to a README near you! 
-  
-[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
-
-## Use-Case Diagram 
+# Modeling Artifacts
+## Architecture Diagram
 <!-- Image Here -->
 Coming soon to a README near you!
- 
+
+[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
+
+## Use-Case Diagram
+<!-- Image Here -->
+Coming soon to a README near you!
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## ER Diagram
 <!-- Image Here -->
 Coming soon to a README near you!
-  
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## UML (Class) Diagram
 <!-- Image Here -->
 Coming soon to a README near you!
-  
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-# Contribution Guidelines 
-## All Contributors must review with and adhere to the following: 
-* Please review our contribution requirements: [here](CONTRIBUTING.md) 
-* Please review our Code of Conduct requirements: [here](CODE_OF_CONDUCT.md) 
-* Please review our Pull Request Template requirements: [here](PULL_REQUEST_TEMPLATE.md) 
-  
+# Contribution Guidelines
+## All Contributors must review with and adhere to the following:
+* Please review our contribution requirements: [here](CONTRIBUTING.md)
+* Please review our Code of Conduct requirements: [here](CODE_OF_CONDUCT.md)
+* Please review our Pull Request Template requirements: [here](PULL_REQUEST_TEMPLATE.md)
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-# Tentative Timeline/Release Plan 
+# Tentative Timeline/Release Plan
 <!-- Image Here -->
 Coming soon to a README near you!
-  
+
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
