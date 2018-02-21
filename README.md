@@ -35,7 +35,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 ## Risks 
 * Have to learn the Android Development Framework
 * Have to learn Kotlin Language
-* Have to learn how to deply a mobile app with a cloud-based backend
+* Have to learn how to deploy a mobile app with a cloud-based backend
 * Have to learn how to authenticate a user to my app and tie that profile to a Spotify account
 * Have to learn how to properly utilize the Spotify API (possibly the SDK)
  
