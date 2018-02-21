@@ -24,6 +24,8 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Users can tether their Spotify account with their listen account
 * Users can send friends requests
 * Users can accept/deny friends requests
+* Users can view their own friends list
+* Users can remove friends from their own friends list
 * Users can create their profile
 * Users can edit their profile
 * Users can display a favorite song on their profile
