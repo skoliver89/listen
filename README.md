@@ -192,12 +192,12 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 
 # Modeling Artifacts
 ## Architecture Diagram
-![Architecture Diagram](readmeAssets\architecture_diagram.png)
+![Architecture Diagram](readmeAssets/architecture_diagram.png)
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## Use-Case Diagram
-![Use-Case Diagram](readmeAssets\usecase_diagram.png)
+![Use-Case Diagram](readmeAssets/usecase_diagram.png)
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
