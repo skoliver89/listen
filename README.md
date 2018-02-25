@@ -11,9 +11,7 @@
     * [Architecture Diagram](https://github.com/skoliver89/listen#architecture-diagram)
     * [Use-Case Diagram](https://github.com/skoliver89/listen#use-case-diagram)
     * [ER Diagram](https://github.com/skoliver89/listen#er-diagram)
-    * [UML (Class) Diagram](https://github.com/skoliver89/listen#uml-class-diagram)
 6. [Contribution Guidelines](https://github.com/skoliver89/listen#contribution-guidelines)
-7. [Tentative Timeline/Release Plan](https://github.com/skoliver89/listen#tentative-timelinerelease-plan)
 
 # Basic Project Information
 * Project Name: listen
@@ -202,14 +200,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## ER Diagram
-<!-- Image Here -->
-Coming soon to a README near you!
-
-[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
-
-## UML (Class) Diagram
-<!-- Image Here -->
-Coming soon to a README near you!
+![ER Diagram](readmeAssets/listenERD.png)
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
@@ -218,11 +209,5 @@ Coming soon to a README near you!
 * Please review our contribution requirements: [here](CONTRIBUTING.md)
 * Please review our Code of Conduct requirements: [here](CODE_OF_CONDUCT.md)
 * Please review our Pull Request Template requirements: [here](PULL_REQUEST_TEMPLATE.md)
-
-[Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
-
-# Tentative Timeline/Release Plan
-<!-- Image Here -->
-Coming soon to a README near you!
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
