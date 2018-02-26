@@ -58,4 +58,6 @@ Once you've resolved any merge conflicts you're ready to create a pull request f
     here: https://google.github.io/styleguide/xmlstyle.html
 
 ## Tools & Versions
-<!--text here-->
+* Android Studio v3.0.1
+* Visual Studio 2017 v15.5.5
+* Access to Azure Moblie App Services
