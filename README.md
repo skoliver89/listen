@@ -155,10 +155,13 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## Non-Functional Requirements
+* Mobile App Back-end
+  * ASP.NET Mobile App service
 * Storage Requirements
   * Local DB to store currently visible data (optimize look up and reduce strain on API server)
+  * Azure DB to store online data
 * User Access Controls
-  * ASP.NET Web API 2.2 Authentication (main)
+  * ASP.NET Moblie App Service Authentication (main)
   * Possibly add in Spotify OAUTH as required
 * Database System
   * MS SQL hosted in Microsoft Azure
@@ -184,7 +187,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 * Have to learn how to deploy a mobile app with a cloud-based backend
 * Have to learn how to authenticate a user to my app and tie that profile to a Spotify account
 * Have to learn how to properly utilize the Spotify API (possibly the SDK)
-* Familiarize with ASP.NET Web API 2.2 including authentication
+* Familiarize with ASP.NET Mobile App Service including authentication
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
