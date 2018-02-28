@@ -5,11 +5,16 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +29,10 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
+
+import com.microsoft.windowsazure.mobileservices.MobileServiceActivityResult;
+import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
+import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceUser;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
@@ -44,6 +53,9 @@ import com.squareup.okhttp.OkHttpClient;
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.*;
 
 public class ToDoActivity extends Activity {
+    // You can choose any unique number here to differentiate auth providers from each other.
+    // Note this is the same code at login() and onActivityResult().
+    public static final int GOOGLE_LOGIN_REQUEST_CODE = 1;
 
     /**
      * Mobile Service Client reference
@@ -76,6 +88,33 @@ public class ToDoActivity extends Activity {
      */
     private ProgressBar mProgressBar;
 
+    private void authenticate() {
+        // Login using the Google provider.
+        mClient.login(MobileServiceAuthenticationProvider.Google, "listen",
+                GOOGLE_LOGIN_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // When request completes
+        if (resultCode == RESULT_OK) {
+            // Check the request code matches the one we send in the login request
+            if (requestCode == GOOGLE_LOGIN_REQUEST_CODE) {
+                MobileServiceActivityResult result = mClient.onActivityResult(data);
+                if (result.isLoggedIn()) {
+                    // login succeeded
+                    createAndShowDialog(String.format("You are now logged in - %1$2s",
+                            mClient.getCurrentUser().getUserId()), "Success");
+                    createTable();
+                } else {
+                    // login failed, check the error message
+                    String errorMessage = result.getErrorMessage();
+                    createAndShowDialog(errorMessage, "Error");
+                }
+            }
+        }
+    }
+
     /**
      * Initializes the activity
      */
@@ -107,34 +146,35 @@ public class ToDoActivity extends Activity {
                     return client;
                 }
             });
-
-            // Get the Mobile Service Table instance to use
-
-            //mToDoTable = mClient.getTable(ToDoItem.class);
-
-            // Offline Sync
-            mToDoTable = mClient.getSyncTable("ToDoItem", ToDoItem.class);
-
+            authenticate();
             //Init local storage
             initLocalStore().get();
 
-            mTextNewToDo = (EditText) findViewById(R.id.textNewToDo);
-
-            // Create an adapter to bind the items with the view
-            mAdapter = new ToDoItemAdapter(this, R.layout.row_list_to_do);
-            ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
-            listViewToDo.setAdapter(mAdapter);
-
-            // Load the items from the Mobile Service
-            refreshItemsFromTable();
-
         } catch (MalformedURLException e) {
-            createAndShowDialog(new Exception("There was an error creating the Mobile Service. Verify the URL"), "Error");
+            createAndShowDialog(new Exception("There was an error creating the Mobile Service. " +
+                    "Verify the URL"), "Error");
         } catch (Exception e){
             createAndShowDialog(e, "Error");
         }
     }
 
+    private void createTable(){
+        // Get the Mobile Service Table instance to use
+        //mToDoTable = mClient.getTable(ToDoItem.class);
+
+        // Offline Sync
+        mToDoTable = mClient.getSyncTable("ToDoItem", ToDoItem.class);
+
+        mTextNewToDo = (EditText) findViewById(R.id.textNewToDo);
+
+        // Create an adapter to bind the items with the view
+        mAdapter = new ToDoItemAdapter(this, R.layout.row_list_to_do);
+        ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
+        listViewToDo.setAdapter(mAdapter);
+
+        // Load the items from the Mobile Service
+        refreshItemsFromTable();
+    }
     /**
      * Initializes the activity menu
      */
