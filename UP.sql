@@ -8,3 +8,5 @@ CREATE TABLE dbo.UserAccounts
 
   CONSTRAINT[PK_dbo.UserAccounts] PRIMARY KEY (UserID)
 );
+
+GO
