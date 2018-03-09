@@ -4,7 +4,10 @@
     <string name="add_textbox_hint">Add a ToDo item</string>
     <string name="add_button_text">Add</string>
     <string name="service_title"> TODO List - A Temp App to test AUTH </string>
+    <string name="AccountForm_title">New User Account</string>
+    <string name="username_helper">Username</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_account">Account</string>
     <string name="checkbox_text">Item Text</string>
 
 </resources>

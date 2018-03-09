@@ -18,6 +18,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,7 +53,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.*;
 
-public class ToDoActivity extends Activity {
+public class MainActivity extends Activity {
     // You can choose any unique number here to differentiate auth providers from each other.
     // Note this is the same code at login() and onActivityResult().
     public static final int GOOGLE_LOGIN_REQUEST_CODE = 1;
@@ -189,11 +190,17 @@ public class ToDoActivity extends Activity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_refresh) {
-            refreshItemsFromTable();
-        }
+        //Handle item selection
+        switch (item.getItemId()){
+            case R.id.menu_refresh:
+                refreshItemsFromTable();
+                return true;
+            case R.id.menu_account:
 
-        return true;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
