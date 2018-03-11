@@ -1,24 +1,20 @@
 package com.example.listen;
 
-
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,14 +29,12 @@ import com.google.common.util.concurrent.SettableFuture;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceActivityResult;
 import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
-import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceUser;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilter;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
-import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.Query;
 import com.microsoft.windowsazure.mobileservices.table.query.QueryOperations;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
@@ -64,12 +58,7 @@ public class MainActivity extends Activity {
     private MobileServiceClient mClient;
 
     /**
-     * Mobile Service Table used to access data
-     */
-    //private MobileServiceTable<ToDoItem> mToDoTable;
-
-    //Offline Sync
-    /**
+     * Offline Sync
      * Mobile Service Table used to access and Sync data
      */
     private MobileServiceSyncTable<ToDoItem> mToDoTable;
@@ -89,6 +78,9 @@ public class MainActivity extends Activity {
      */
     private ProgressBar mProgressBar;
 
+    /**
+     * Authenticate the user using Google
+     */
     private void authenticate() {
         // Login using the Google provider.
         mClient.login(MobileServiceAuthenticationProvider.Google, "listen",
@@ -122,9 +114,12 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+       //Load the main activity of the app
         setContentView(R.layout.activity_to_do);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+        mProgressBar = findViewById(R.id.loadingProgressBar);
 
         // Initialize the progress bar
         mProgressBar.setVisibility(ProgressBar.GONE);
@@ -147,15 +142,16 @@ public class MainActivity extends Activity {
                     return client;
                 }
             });
+            //Authenticate the User
             authenticate();
             //Init local storage
             initLocalStore().get();
 
         } catch (MalformedURLException e) {
             createAndShowDialog(new Exception("There was an error creating the Mobile Service. " +
-                    "Verify the URL"), "Error");
+                    "Verify the URL"));
         } catch (Exception e){
-            createAndShowDialog(e, "Error");
+            createAndShowDialog(e);
         }
     }
 
@@ -166,11 +162,11 @@ public class MainActivity extends Activity {
         // Offline Sync
         mToDoTable = mClient.getSyncTable("ToDoItem", ToDoItem.class);
 
-        mTextNewToDo = (EditText) findViewById(R.id.textNewToDo);
+        mTextNewToDo = findViewById(R.id.textNewToDo);
 
         // Create an adapter to bind the items with the view
         mAdapter = new ToDoItemAdapter(this, R.layout.row_list_to_do);
-        ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
+        ListView listViewToDo = findViewById(R.id.listViewToDo);
         listViewToDo.setAdapter(mAdapter);
 
         // Load the items from the Mobile Service
@@ -196,7 +192,8 @@ public class MainActivity extends Activity {
                 refreshItemsFromTable();
                 return true;
             case R.id.menu_account:
-
+                Intent launchNewUserIntent = new Intent(this, NewUserActivity.class);
+                startActivityForResult(launchNewUserIntent, 0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -217,7 +214,7 @@ public class MainActivity extends Activity {
         // Set the item as completed and update it in the table
         item.setComplete(true);
 
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new  AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -232,7 +229,7 @@ public class MainActivity extends Activity {
                         }
                     });
                 } catch (final Exception e) {
-                    createAndShowDialogFromTask(e, "Error");
+                    createAndShowDialogFromTask(e);
                 }
 
                 return null;
@@ -271,7 +268,7 @@ public class MainActivity extends Activity {
         item.setComplete(false);
 
         // Insert the new item
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -286,7 +283,7 @@ public class MainActivity extends Activity {
                         }
                     });
                 } catch (final Exception e) {
-                    createAndShowDialogFromTask(e, "Error");
+                    createAndShowDialogFromTask(e);
                 }
                 return null;
             }
@@ -316,7 +313,7 @@ public class MainActivity extends Activity {
         // Get the items that weren't marked as completed and add them in the
         // adapter
 
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -337,7 +334,7 @@ public class MainActivity extends Activity {
                         }
                     });
                 } catch (final Exception e){
-                    createAndShowDialogFromTask(e, "Error");
+                    createAndShowDialogFromTask(e);
                 }
 
                 return null;
@@ -348,16 +345,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Refresh the list with the items in the Mobile Service Table
-     */
-
-    /*private List<ToDoItem> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException {
-        return mToDoTable.where().field("complete").
-                eq(val(false)).execute().get();
-    }*/
-
-    //Offline Sync
-    /**
+     * Offline Sync
      * Refresh the list with the items in the Mobile Service Sync Table
      */
     private List<ToDoItem> refreshItemsFromMobileServiceTableSyncTable() throws ExecutionException, InterruptedException {
@@ -370,14 +358,14 @@ public class MainActivity extends Activity {
 
     /**
      * Initialize local storage
-     * @return
-     * @throws MobileServiceLocalStoreException
-     * @throws ExecutionException
-     * @throws InterruptedException
+     * @return null
+     * @throws MobileServiceLocalStoreException e
+     * @throws ExecutionException e
+     * @throws InterruptedException e
      */
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
 
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -389,7 +377,7 @@ public class MainActivity extends Activity {
 
                     SQLiteLocalStore localStore = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
 
-                    Map<String, ColumnDataType> tableDefinition = new HashMap<String, ColumnDataType>();
+                    Map<String, ColumnDataType> tableDefinition = new HashMap<>();
                     tableDefinition.put("id", ColumnDataType.String);
                     tableDefinition.put("text", ColumnDataType.String);
                     tableDefinition.put("complete", ColumnDataType.Boolean);
@@ -401,7 +389,7 @@ public class MainActivity extends Activity {
                     syncContext.initialize(localStore, handler).get();
 
                 } catch (final Exception e) {
-                    createAndShowDialogFromTask(e, "Error");
+                    createAndShowDialogFromTask(e);
                 }
 
                 return null;
@@ -414,10 +402,10 @@ public class MainActivity extends Activity {
     //Offline Sync
     /**
      * Sync the current context and the Mobile Service Sync Table
-     * @return
+     * @return runAsyncTask(task)
      */
     private AsyncTask<Void, Void, Void> sync() {
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -425,7 +413,7 @@ public class MainActivity extends Activity {
                     syncContext.push().get();
                     mToDoTable.pull(null).get();
                 } catch (final Exception e) {
-                    createAndShowDialogFromTask(e, "Error");
+                    createAndShowDialogFromTask(e);
                 }
                 return null;
             }
@@ -435,17 +423,15 @@ public class MainActivity extends Activity {
 
     /**
      * Creates a dialog and shows it
-     *
-     * @param exception
+     *  @param exception
      *            The exception to show in the dialog
-     * @param title
-     *            The dialog title
+     *
      */
-    private void createAndShowDialogFromTask(final Exception exception, String title) {
+    private void createAndShowDialogFromTask(final Exception exception) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                createAndShowDialog(exception, "Error");
+                createAndShowDialog(exception);
             }
         });
     }
@@ -453,18 +439,16 @@ public class MainActivity extends Activity {
 
     /**
      * Creates a dialog and shows it
-     *
-     * @param exception
+     *  @param exception
      *            The exception to show in the dialog
-     * @param title
-     *            The dialog title
+     *
      */
-    private void createAndShowDialog(Exception exception, String title) {
+    private void createAndShowDialog(Exception exception) {
         Throwable ex = exception;
         if(exception.getCause() != null){
             ex = exception.getCause();
         }
-        createAndShowDialog(ex.getMessage(), title);
+        createAndShowDialog(ex.getMessage(), "Error");
     }
 
     /**
@@ -485,15 +469,11 @@ public class MainActivity extends Activity {
 
     /**
      * Run an ASync task on the corresponding executor
-     * @param task
-     * @return
+     * @param task to run async
+     * @return task.execute()
      */
     private AsyncTask<Void, Void, Void> runAsyncTask(AsyncTask<Void, Void, Void> task) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            return task.execute();
-        }
+        return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class ProgressFilter implements ServiceFilter {
@@ -516,7 +496,7 @@ public class MainActivity extends Activity {
 
             Futures.addCallback(future, new FutureCallback<ServiceFilterResponse>() {
                 @Override
-                public void onFailure(Throwable e) {
+                public void onFailure(@NonNull Throwable e) {
                     resultFuture.setException(e);
                 }
 
@@ -536,5 +516,6 @@ public class MainActivity extends Activity {
 
             return resultFuture;
         }
+
     }
 }

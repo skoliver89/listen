@@ -36,4 +36,5 @@ dependencies {
     compile 'com.microsoft.azure:azure-mobile-android:3.2.0@aar'
     compile 'com.microsoft.azure:azure-notifications-handler:1.0.1@jar'
     compile 'com.android.support:customtabs:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
 }

@@ -9,5 +9,7 @@
     <string name="menu_refresh">Refresh</string>
     <string name="menu_account">Account</string>
     <string name="checkbox_text">Item Text</string>
+    <string name="username_question">What would you like to be called?</string>
+    <string name="AccountForm_button">Create</string>
 
 </resources>
