@@ -1,4 +1,4 @@
-CREATE TABLE dbo.UserAccounts
+CREATE TABLE dbo.UserAccount
 (
    /* Populated with Google SID On first login
       Used as Primary Key for User Look-up */

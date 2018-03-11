@@ -1,3 +1,3 @@
-DROP TABLE IF EXISTS dbo.UserAccounts;
+DROP TABLE IF EXISTS dbo.UserAccount;
 
 GO
