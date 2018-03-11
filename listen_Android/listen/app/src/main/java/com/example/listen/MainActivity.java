@@ -11,6 +11,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +33,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import com.microsoft.windowsazure.mobileservices.MobileServiceActivityResult;
 import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceUser;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilter;
@@ -79,12 +83,62 @@ public class MainActivity extends Activity {
     private ProgressBar mProgressBar;
 
     /**
+     * Members for the caching of authentication tokens
+     */
+    public static final String SHAREDPREFFILE = "temp";
+    public static final String USERIDPREF = "uid";
+    public static final String TOKENPREF = "tkn";
+
+    /**
+     * Cache the current user's authentication token
+     * @param user The current user
+     */
+    private void cacheUserToken(MobileServiceUser user) {
+        SharedPreferences prefs = getSharedPreferences(SHAREDPREFFILE, Context.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putString(USERIDPREF, user.getUserId());
+        editor.putString(TOKENPREF, user.getAuthenticationToken());
+        editor.commit();
+    }
+
+    /**
+     * Load in the user token cache from the client
+     * @param client the client/backend
+     * @return true if the user id and token are cached
+     */
+    private boolean loadUserTokenCache(MobileServiceClient client){
+        SharedPreferences prefs = getSharedPreferences(SHAREDPREFFILE, Context.MODE_PRIVATE);
+        String userId = prefs.getString(USERIDPREF, null);
+        if (userId == null)
+            return false;
+        String token = prefs.getString(TOKENPREF, null);
+        if (token == null)
+            return false;
+
+        MobileServiceUser user = new MobileServiceUser(userId);
+        user.setAuthenticationToken(token);
+        client.setCurrentUser(user);
+
+        return true;
+    }
+
+    /**
      * Authenticate the user using Google
      */
     private void authenticate() {
-        // Login using the Google provider.
-        mClient.login(MobileServiceAuthenticationProvider.Google, "listen",
-                GOOGLE_LOGIN_REQUEST_CODE);
+        //First, try to load a token cache if one exists.
+        if(loadUserTokenCache(mClient))
+        {
+            createTable();
+        }
+        //If we failed to load a token cache, login and create a token cache
+        else
+        {
+            // Login using the Google provider.
+            mClient.login(MobileServiceAuthenticationProvider.Google, "listen",
+                    GOOGLE_LOGIN_REQUEST_CODE);
+        }
+
     }
 
     @Override
@@ -98,6 +152,7 @@ public class MainActivity extends Activity {
                     // login succeeded
                     createAndShowDialog(String.format("You are now logged in - %1$2s",
                             mClient.getCurrentUser().getUserId()), "Success");
+                    cacheUserToken(mClient.getCurrentUser());
                     createTable();
                 } else {
                     // login failed, check the error message
@@ -142,10 +197,10 @@ public class MainActivity extends Activity {
                     return client;
                 }
             });
-            //Authenticate the User
-            authenticate();
             //Init local storage
             initLocalStore().get();
+            //Authenticate the User
+            authenticate();
 
         } catch (MalformedURLException e) {
             createAndShowDialog(new Exception("There was an error creating the Mobile Service. " +
@@ -203,8 +258,7 @@ public class MainActivity extends Activity {
     /**
      * Mark an item as completed
      *
-     * @param item
-     *            The item to mark
+     * @param item The item to mark
      */
     public void checkItem(final ToDoItem item) {
         if (mClient == null) {
@@ -214,7 +268,8 @@ public class MainActivity extends Activity {
         // Set the item as completed and update it in the table
         item.setComplete(true);
 
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new  AsyncTask<Void, Void, Void>(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new  AsyncTask<Void,
+                Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -297,8 +352,7 @@ public class MainActivity extends Activity {
     /**
      * Add an item to the Mobile Service Table
      *
-     * @param item
-     *            The item to Add
+     * @param item The item to Add
      */
     public ToDoItem addItemInTable(ToDoItem item) throws ExecutionException, InterruptedException {
         ToDoItem entity = mToDoTable.insert(item).get();
@@ -348,7 +402,8 @@ public class MainActivity extends Activity {
      * Offline Sync
      * Refresh the list with the items in the Mobile Service Sync Table
      */
-    private List<ToDoItem> refreshItemsFromMobileServiceTableSyncTable() throws ExecutionException, InterruptedException {
+    private List<ToDoItem> refreshItemsFromMobileServiceTableSyncTable() throws ExecutionException,
+            InterruptedException {
         //sync the data
         sync().get();
         Query query = QueryOperations.field("complete").
@@ -363,9 +418,11 @@ public class MainActivity extends Activity {
      * @throws ExecutionException e
      * @throws InterruptedException e
      */
-    private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
+    private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException,
+            ExecutionException, InterruptedException {
 
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void,
+                Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -375,7 +432,8 @@ public class MainActivity extends Activity {
                     if (syncContext.isInitialized())
                         return null;
 
-                    SQLiteLocalStore localStore = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
+                    SQLiteLocalStore localStore = new SQLiteLocalStore(mClient.getContext(),
+                            "OfflineStore", null, 1);
 
                     Map<String, ColumnDataType> tableDefinition = new HashMap<>();
                     tableDefinition.put("id", ColumnDataType.String);
@@ -405,7 +463,8 @@ public class MainActivity extends Activity {
      * @return runAsyncTask(task)
      */
     private AsyncTask<Void, Void, Void> sync() {
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = new AsyncTask<Void,
+                Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -479,7 +538,8 @@ public class MainActivity extends Activity {
     private class ProgressFilter implements ServiceFilter {
 
         @Override
-        public ListenableFuture<ServiceFilterResponse> handleRequest(ServiceFilterRequest request, NextServiceFilterCallback nextServiceFilterCallback) {
+        public ListenableFuture<ServiceFilterResponse> handleRequest(
+                ServiceFilterRequest request, NextServiceFilterCallback nextServiceFilterCallback) {
 
             final SettableFuture<ServiceFilterResponse> resultFuture = SettableFuture.create();
 
@@ -492,7 +552,8 @@ public class MainActivity extends Activity {
                 }
             });
 
-            ListenableFuture<ServiceFilterResponse> future = nextServiceFilterCallback.onNext(request);
+            ListenableFuture<ServiceFilterResponse> future =
+                    nextServiceFilterCallback.onNext(request);
 
             Futures.addCallback(future, new FutureCallback<ServiceFilterResponse>() {
                 @Override
