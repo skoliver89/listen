@@ -11,26 +11,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // ### Class Variables
+
     private static final int RC_SIGN_IN = 123;
 
-// ...
+    // ### Custom Methods
 
     // Choose authentication providers
     @SuppressWarnings("deprecation")
-    List<AuthUI.IdpConfig> providers = Arrays.asList(
-            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
-    );
+    List<AuthUI.IdpConfig> providers = Collections.singletonList(new AuthUI.IdpConfig.Builder(
+            AuthUI.GOOGLE_PROVIDER).build());
 
     public void authenticate(){
         // Create and launch sign-in intent
@@ -51,11 +51,25 @@ public class MainActivity extends AppCompatActivity {
                         // After sign out restart the app -> login prompt
                         Intent i = getBaseContext().getPackageManager()
                                 .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        if (i != null) {
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        }
                         startActivity(i);
                     }
                 });
     }
+
+    public void showAccount(FirebaseUser user){
+        Intent intent = new Intent(this, AccountActivity.class);
+        String username = user.getDisplayName();
+        String email = user.getEmail();
+
+        intent.putExtra("username", username);
+        intent.putExtra("email", email);
+        startActivity(intent);
+    }
+
+    // ### Overriding Methods ###
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +83,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
+            //IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                //Some test text for the main activity
                 TextView testText = findViewById(R.id.test_text);
-                String userName = user.getDisplayName();
-                testText.setText("Hello " + userName + "!");
+                String userName = user != null ? user.getDisplayName() : null;
+                String msg = "Hello " + userName + "!";
+                testText.setText(msg);
                 testText.setVisibility(View.VISIBLE);
             } else {
-                // Sign in failed, check response for error code
-                // ...
+                // Sign in failed, reload the app to the login prompt
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                if (i != null) {
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                }
+                startActivity(i);
             }
         }
     }
@@ -98,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_account:
-
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                showAccount(user);
                 return true;
             case R.id.menu_sign_out:
                 signOut();
