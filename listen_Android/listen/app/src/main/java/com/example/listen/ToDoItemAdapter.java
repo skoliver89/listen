@@ -56,8 +56,8 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem> {
             public void onClick(View arg0) {
                 if (checkBox.isChecked()) {
                     checkBox.setEnabled(false);
-                    if (mContext instanceof MainActivity) {
-                        MainActivity activity = (MainActivity) mContext;
+                    if (mContext instanceof ToDoActivity) {
+                        ToDoActivity activity = (ToDoActivity) mContext;
                         activity.checkItem(currentItem);
                     }
                 }

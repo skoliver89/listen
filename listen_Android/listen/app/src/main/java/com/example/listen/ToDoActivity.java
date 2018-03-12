@@ -1,5 +1,6 @@
 package com.example.listen;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
@@ -47,11 +48,12 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDat
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.*;
 
-public class MainActivity extends Activity {
+public class ToDoActivity extends Activity {
     // You can choose any unique number here to differentiate auth providers from each other.
     // Note this is the same code at login() and onActivityResult().
     public static final int GOOGLE_LOGIN_REQUEST_CODE = 1;
@@ -134,9 +136,11 @@ public class MainActivity extends Activity {
         //If we failed to load a token cache, login and create a token cache
         else
         {
+            HashMap<String, String> parameters = new HashMap<>();
+            parameters.put("access_type", "offline");
             // Login using the Google provider.
-            mClient.login(MobileServiceAuthenticationProvider.Google, "listen",
-                    GOOGLE_LOGIN_REQUEST_CODE);
+            //mClient.login(MobileServiceAuthenticationProvider.Google, "listen",
+                    //GOOGLE_LOGIN_REQUEST_CODE);
         }
 
     }
@@ -171,7 +175,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
-       //Load the main activity of the app
+        //Load the main activity of the app
         setContentView(R.layout.activity_to_do);
 
         mProgressBar = findViewById(R.id.loadingProgressBar);
@@ -183,9 +187,7 @@ public class MainActivity extends Activity {
             // Create the Mobile Service Client instance, using the provided
 
             // Mobile Service URL and key
-            mClient = new MobileServiceClient(
-                    "https://listen.azurewebsites.net",
-                    this).withFilter(new ProgressFilter());
+            mClient = new MobileServiceClient("https://listen.azurewebsites.net", this).withFilter(new ProgressFilter());
 
             // Extend timeout from default of 10s to 20s
             mClient.setAndroidHttpClientFactory(new OkHttpClientFactory() {
@@ -203,29 +205,34 @@ public class MainActivity extends Activity {
             authenticate();
 
         } catch (MalformedURLException e) {
-            createAndShowDialog(new Exception("There was an error creating the Mobile Service. " +
-                    "Verify the URL"));
-        } catch (Exception e){
-            createAndShowDialog(e);
+            createAndShowDialog(new Exception("There was an error creating the Mobile Service. " + "Verify the URL"));
+        } catch (Exception e) {
+            createAndShowDialog(e.getMessage(), "Error-onCreate");
         }
     }
+
 
     private void createTable(){
         // Get the Mobile Service Table instance to use
         //mToDoTable = mClient.getTable(ToDoItem.class);
 
         // Offline Sync
-        mToDoTable = mClient.getSyncTable("ToDoItem", ToDoItem.class);
+        try{
+            mToDoTable = mClient.getSyncTable("ToDoItem", ToDoItem.class);
 
-        mTextNewToDo = findViewById(R.id.textNewToDo);
+            mTextNewToDo = findViewById(R.id.textNewToDo);
 
-        // Create an adapter to bind the items with the view
-        mAdapter = new ToDoItemAdapter(this, R.layout.row_list_to_do);
-        ListView listViewToDo = findViewById(R.id.listViewToDo);
-        listViewToDo.setAdapter(mAdapter);
+            // Create an adapter to bind the items with the view
+            mAdapter = new ToDoItemAdapter(this, R.layout.row_list_to_do);
+            ListView listViewToDo = findViewById(R.id.listViewToDo);
+            listViewToDo.setAdapter(mAdapter);
 
-        // Load the items from the Mobile Service
-        refreshItemsFromTable();
+            // Load the items from the Mobile Service
+            refreshItemsFromTable();
+        }
+        catch (Exception e){
+            createAndShowDialog(e.getMessage(), "Error-CreateTable");
+        }
     }
     /**
      * Initializes the activity menu
@@ -247,8 +254,8 @@ public class MainActivity extends Activity {
                 refreshItemsFromTable();
                 return true;
             case R.id.menu_account:
-                Intent launchNewUserIntent = new Intent(this, NewUserActivity.class);
-                startActivityForResult(launchNewUserIntent, 0);
+                //Intent launchNewUserIntent = new Intent(this, NewUserActivity.class);
+                //tartActivityForResult(launchNewUserIntent, 0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -388,7 +395,7 @@ public class MainActivity extends Activity {
                         }
                     });
                 } catch (final Exception e){
-                    createAndShowDialogFromTask(e);
+                    createAndShowDialog(e.getMessage(), "Error-Refresh");
                 }
 
                 return null;
