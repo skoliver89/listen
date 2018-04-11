@@ -17,8 +17,8 @@ public class NewUserProfile extends AppCompatActivity {
 
     // ### Custom Methods
 
-    //Sign-out the user
-    //Used if the user does not have and neglects to initialize a profile
+    // Sign-out the user
+    // Used if the user does not have and neglects to initialize a profile
     public void signOut() {
         AuthUI.getInstance()
                 .signOut(this)
@@ -45,17 +45,26 @@ public class NewUserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user_profile);
 
-        //Submit Button Behavior - Submit data to users->#profileDoc# in DB
-
-
-        //Cancel Button Behavior - Send to log-in prompt
-        //Find the Cancel button
-        final Button cancelButton = findViewById(R.id.newProfileCancelButton);
-        //Create a listener for the Cancel Button
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        // Submit Button Behavior - Submit data to users->#profileDoc# in DB
+        // Find the Submit Button
+        final Button submitButton = findViewById(R.id.newProfileSubmitButton);
+        // Create a listener for the Submit Button
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Do Stuff when the button is clicked
+                
+            }
+        });
+
+        // Cancel Button Behavior - Send to log-in prompt
+        // Find the Cancel button
+        final Button cancelButton = findViewById(R.id.newProfileCancelButton);
+        // Create a listener for the Cancel Button
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Do Stuff when the button is clicked
                 signOut();
             }
         });
