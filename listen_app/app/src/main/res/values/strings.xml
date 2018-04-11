@@ -6,4 +6,9 @@
     <string name="user_icon_desc">User Icon Image</string>
     <string name="accountLabel_username">Username:</string>
     <string name="accountLabel_email">Email:</string>
+    <string name="newProfileTitle">Create Your Profile</string>
+    <string name="submitButton">Submit</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="aliasFieldHint">Alias (User Name)</string>
+    <string name="bioFieldHint">Bio: What is special about you?</string>
 </resources>
