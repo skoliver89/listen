@@ -53,7 +53,7 @@ public class NewUserProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do Stuff when the button is clicked
-                
+
             }
         });
 

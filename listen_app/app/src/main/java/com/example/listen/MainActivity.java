@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 RC_SIGN_IN);
     }
 
+    public void profileExists(){
+        
+    }
+
     public void signOut(){
         AuthUI.getInstance()
                 .signOut(this)
@@ -80,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         authenticate();
+
+        /* TODO Check if the logged in user has a profile document in DB
+            IF YES: Show the Profile
+            IF NO: Direct to profile create activity (NewUserProfile)
+         */
     }
 
     @Override
