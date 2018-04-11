@@ -54,7 +54,8 @@
             android:layout_weight="1"
             android:text="@string/tmp_text"
             android:textAlignment="textStart"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:gravity="start" />
 
     </LinearLayout>
 
@@ -77,7 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/accountLabel_email"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:gravity="start" />
 
         <TextView
             android:id="@+id/text_email"
@@ -85,7 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/tmp_text"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:gravity="start" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
