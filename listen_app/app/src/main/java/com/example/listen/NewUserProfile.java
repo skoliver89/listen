@@ -46,6 +46,7 @@ public class NewUserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_new_user_profile);
 
         //Submit Button Behavior - Submit data to users->#profileDoc# in DB
+        
 
         //Cancel Button Behavior - Send to log-in prompt
         final Button cancelButton = findViewById(R.id.newProfileCancelButton);
