@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,7 +48,13 @@ public class NewUserProfile extends AppCompatActivity {
         //Submit Button Behavior - Submit data to users->#profileDoc# in DB
 
         //Cancel Button Behavior - Send to log-in prompt
-        signOut();
+        final Button cancelButton = findViewById(R.id.newProfileCancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
 
     }
 }
