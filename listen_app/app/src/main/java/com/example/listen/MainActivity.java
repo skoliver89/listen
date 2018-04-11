@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // ### Overriding Methods ###
+    // ### Overriding Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
