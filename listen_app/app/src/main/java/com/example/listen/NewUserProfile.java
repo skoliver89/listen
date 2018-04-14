@@ -45,14 +45,14 @@ public class NewUserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user_profile);
 
-        // Submit Button Behavior - Submit data to users->#profileDoc# in DB
+        // Submit Button Behavior - Submit data to profiles->#profileDoc(uid)# in DB
         // Find the Submit Button
         final Button submitButton = findViewById(R.id.newProfileSubmitButton);
         // Create a listener for the Submit Button
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Do Stuff when the button is clicked
+                //Create the Profile Document for the user in FireStore
 
             }
         });
@@ -64,7 +64,7 @@ public class NewUserProfile extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Do Stuff when the button is clicked
+                // Sign the user out if they cancel profile creation
                 signOut();
             }
         });
