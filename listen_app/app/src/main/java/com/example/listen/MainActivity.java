@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    // ### Activity Navigation
+
+    //Load up the Account activity
     public void showAccount(FirebaseUser user){
         Intent intent = new Intent(this, AccountActivity.class);
         String username = user.getDisplayName();
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Load up the NewUserProfile activity
     public void createProfile(FirebaseUser user)
     {
         Intent intent = new Intent(this, NewUserProfile.class);

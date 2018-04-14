@@ -66,13 +66,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newProfileUserIcon" />
 
-    <MultiAutoCompleteTextView
+    <EditText
         android:id="@+id/newProfileBio"
-        android:layout_width="267dp"
-        android:layout_height="245dp"
+        android:layout_width="266dp"
+        android:layout_height="193dp"
         android:layout_marginTop="16dp"
+        android:ems="10"
         android:hint="@string/bioFieldHint"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newProfileAlias" />
 

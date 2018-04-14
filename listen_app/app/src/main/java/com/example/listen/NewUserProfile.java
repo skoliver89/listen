@@ -4,16 +4,27 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewUserProfile extends AppCompatActivity {
 
     // ### Class Variables
+    private static final String TAG = "NewUserProfile";
+    // Access a Cloud Firestore instance from your Activity
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // ### Custom Methods
 
@@ -36,7 +47,10 @@ public class NewUserProfile extends AppCompatActivity {
                 });
     }
 
-
+    public void showProfile(){
+        //start the activity for the account view (TODO: Change to ProfileActivity when made)
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
     // ### Overriding Methods
 
@@ -52,8 +66,39 @@ public class NewUserProfile extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get the uid value from the Intent's StringExtra
+                // Used as the profile document name
+                String uid = getIntent().getStringExtra("uid");
+                // Get the values for the profile document
+                // alias value
+                EditText aliasET = findViewById(R.id.newProfileAlias);
+                String alias = aliasET.getText().toString();
+                // bio value
+                EditText bioET = findViewById(R.id.newProfileBio);
+                String bio = bioET.getText().toString();
+                //store the profile values in a Map
+                Map<String, Object> profData = new HashMap<>();
+                profData.put("alias", alias);
+                profData.put("bio", bio);
                 //Create the Profile Document for the user in FireStore
-
+                //On Success Load the profile view
+                db.collection("profiles").document(uid)
+                        .set(profData)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                //Load the Profile View Activity
+                                //For now load in the main activity until the view is made
+                                showProfile();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //If it fails log it
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
             }
         });
 
