@@ -10,5 +10,4 @@
     <string name="cancelButton">Cancel</string>
     <string name="aliasFieldHint">Alias (User Name)</string>
     <string name="bioFieldHint">Bio: What is special about you?</string>
-    <string name="bioLabel">Bio: </string>
 </resources>

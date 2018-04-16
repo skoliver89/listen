@@ -1,9 +1,13 @@
 package com.example.listen;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -14,28 +18,40 @@ public class ProfileActivity extends MenuActivity {
     // ### Class Variables
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //private static final String TAG = "ProfileActivity";
+    private static final String TAG = "ProfileActivity";
 
     // ### Custom Methods
-    private String getData(String uid, final String field){
-        String data = "";
 
-        DocumentReference profile = db.collection("profiles").document(uid);
 
-        DocumentSnapshot snap = profile.get().getResult();
-
-        data = snap.getData().get(field).toString();
-        return data;
-    }
     // ### Overrides
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        TextView aliasText = findViewById(R.id.profileAlias);
-        TextView bioText = findViewById(R.id.profileBio);
+        final TextView aliasText = findViewById(R.id.profileAlias);
+        final TextView bioText = findViewById(R.id.profileBio);
         if(user != null){
-            String uid = user.getUid();
+            final String uid = user.getUid();
+            DocumentReference profRef = db.collection("profiles").document(uid);
+            profRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot profile = task.getResult();
+                        if (profile.exists()){
+                            aliasText.setText(profile.getString("alias"));
+                            bioText.setText(profile.getString("bio"));
+                        }
+                        else {
+                            Log.d(TAG, "Profile Does not exist for: "+ uid);
+                        }
+                    }
+                    else {
+                        Log.d(TAG, "Error getting the profile document: " +
+                                task.getException());
+                    }
+                }
+            });
         }
 
 
