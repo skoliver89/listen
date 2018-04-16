@@ -52,10 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tmp_text"
+            android:gravity="start"
             android:textAlignment="textStart"
-            android:visibility="visible"
-            android:gravity="start" />
+            android:visibility="visible" />
 
     </LinearLayout>
 
@@ -86,9 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tmp_text"
-            android:textAlignment="textStart"
-            android:gravity="start" />
+            android:gravity="start"
+            android:textAlignment="textStart" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
