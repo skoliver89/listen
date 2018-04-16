@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot profile = task.getResult();
                     if (profile.exists()){
                         //The user has made a profile before, load profile view activity
-
+                        showProfile();
                     }
                     else{
                         //The user has not made a profile before, load new profile activity
@@ -77,35 +77,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void signOut(){
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // After sign out restart the app -> login prompt
-                        Intent i = getBaseContext().getPackageManager()
-                                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-                        if (i != null) {
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        }
-                        startActivity(i);
-                    }
-                });
-    }
 
     // ### Activity Navigation
-
-    //Load up the Account activity
-    public void showAccount(FirebaseUser user){
-        Intent intent = new Intent(this, AccountActivity.class);
-        String username = user.getDisplayName();
-        String email = user.getEmail();
-
-        intent.putExtra("username", username);
-        intent.putExtra("email", email);
-        startActivity(intent);
-    }
 
     //Load up the NewUserProfile activity
     public void createProfile(FirebaseUser user)
@@ -113,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewUserProfile.class);
 
         intent.putExtra("uid", user.getUid());
+        startActivity(intent);
+    }
+    public void showProfile(){
+        Intent intent = new Intent(this, ProfileActivity.class);
+
         startActivity(intent);
     }
 
@@ -136,14 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 profileExists(user);
-                /*
-                //Some test text for the main activity - replace with profile check method
-                TextView testText = findViewById(R.id.test_text);
-                String userName = user != null ? user.getDisplayName() : null;
-                String msg = "Hello " + userName + "!";
-                testText.setText(msg);
-                testText.setVisibility(View.VISIBLE);
-                */
             } else {
                 // Sign in failed, reload the app to the login prompt
                 Intent i = getBaseContext().getPackageManager()
@@ -155,29 +125,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    // ### MENU STUFF ###
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.menu_account:
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                showAccount(user);
-                return true;
-            case R.id.menu_sign_out:
-                signOut();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 }

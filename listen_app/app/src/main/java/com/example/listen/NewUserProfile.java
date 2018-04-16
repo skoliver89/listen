@@ -48,8 +48,8 @@ public class NewUserProfile extends AppCompatActivity {
     }
 
     public void showProfile(){
-        //start the activity for the account view (TODO: Change to ProfileActivity when made)
-        startActivity(new Intent(this, MainActivity.class));
+        //start the activity for the profile view
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 
     // ### Overriding Methods
