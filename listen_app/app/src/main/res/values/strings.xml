@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">listen</string>
-    <string name="tmp_text">Hello World!</string>
     <string name="menu_account">Account</string>
     <string name="menu_sign_out">Sign Out</string>
     <string name="user_icon_desc">User Icon Image</string>
@@ -11,4 +10,5 @@
     <string name="cancelButton">Cancel</string>
     <string name="aliasFieldHint">Alias (User Name)</string>
     <string name="bioFieldHint">Bio: What is special about you?</string>
+    <string name="bioLabel">Bio: </string>
 </resources>
