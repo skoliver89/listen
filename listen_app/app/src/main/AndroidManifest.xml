@@ -21,10 +21,11 @@
             android:parentActivityName=".ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ProfileActivity" />
         </activity>
         <activity android:name=".NewUserProfile" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".EditProfileActivity" />
     </application>
 
 </manifest>
