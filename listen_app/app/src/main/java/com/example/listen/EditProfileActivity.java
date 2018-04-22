@@ -50,7 +50,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (user != null){
             final String uid = user.getUid();
-            DocumentReference profRef = db.collection("profiles").document(uid);
+            final DocumentReference profRef = db.collection("profiles").document(uid);
             profRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -62,30 +62,37 @@ public class EditProfileActivity extends AppCompatActivity {
                             alias.setHint(profile.getString("alias"));
                             // Set the bio hint to the current bio value in the document
                             bio.setHint(profile.getString("bio"));
-
-                            // Listen for the submit button -> submit changes and back to profile
-                            submit.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    //TODO Update the users profile document
-                                    
-                                    //Load back up the profile activity/view
-                                    showProfile();
-                                }
-                            });
-                            // Listen for the cancel button -> submit nothing and back to profile
-                            cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    // Load back up the profile activity/view
-                                    showProfile();
-                                }
-                            });
-
                         }
                         else { Log.d(TAG, "No Profile found for user: " + uid); }
                     }
                     else { Log.d(TAG, "get failed with: " + task.getException()); }
+                }
+            });
+            // Listen for the submit button -> submit changes and back to profile
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Update the users profile document
+                    // Get the text from the fields
+                    String aliasTxt = alias.getText().toString();
+                    String bioTxt = bio.getText().toString();
+                    // If a field as a value update the profile document
+                    if (!aliasTxt.isEmpty()){
+                        profRef.update("alias", aliasTxt);
+                    }
+                    if (!bioTxt.isEmpty()){
+                        profRef.update("bio", bioTxt);
+                    }
+                    // Load back up the profile activity/view
+                    showProfile();
+                }
+            });
+            // Listen for the cancel button -> submit nothing and back to profile
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Load back up the profile activity/view
+                    showProfile();
                 }
             });
         }
