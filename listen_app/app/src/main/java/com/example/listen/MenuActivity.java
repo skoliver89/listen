@@ -33,13 +33,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     //Load up the Account activity
-    public void showAccount(FirebaseUser user){
+    public void showAccount(){
         Intent intent = new Intent(this, AccountActivity.class);
-        String username = user.getDisplayName();
-        String email = user.getEmail();
 
-        intent.putExtra("username", username);
-        intent.putExtra("email", email);
         startActivity(intent);
     }
 
@@ -55,8 +51,7 @@ public class MenuActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_account:
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                showAccount(user);
+                showAccount();
                 return true;
             case R.id.menu_sign_out:
                 signOut();
