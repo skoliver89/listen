@@ -202,7 +202,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-## ER Diagram
+## ER Diagram(Needs Updating Since Moving to NoSQL)
 ![ER Diagram](readmeAssets/listenERD3.png)
 
 
