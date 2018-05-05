@@ -161,7 +161,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
   * Local DB to store currently visible data (optimize look up and reduce strain on API server)
   * Azure DB to store online data
 * User Access Controls
-  * ASP.NET Moblie App Service Authentication (main)
+  * ASP.NET Mobile App Service Authentication (main)
   * Possibly add in Spotify OAUTH as required
 * Database System
   * MS SQL hosted in Microsoft Azure
@@ -203,7 +203,7 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
 ## ER Diagram
-![ER Diagram](readmeAssets/listenERD3.png)
+![ER Diagram](readmeAssets/listenDB.png)
 
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
