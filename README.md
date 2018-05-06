@@ -10,7 +10,7 @@
 5. [Modeling Artifacts](https://github.com/skoliver89/listen#modeling-artifacts)
     * [Architecture Diagram](https://github.com/skoliver89/listen#architecture-diagram)
     * [Use-Case Diagram](https://github.com/skoliver89/listen#use-case-diagram)
-    * [ER Diagram](https://github.com/skoliver89/listen#er-diagram)
+    * [DB Diagram](https://github.com/skoliver89/listen#db-diagram)
 6. [Contribution Guidelines](https://github.com/skoliver89/listen#contribution-guidelines)
 
 # Basic Project Information
@@ -202,8 +202,8 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
-## ER Diagram
-![ER Diagram](readmeAssets/listenDB.png)
+## DB Diagram
+![DB Diagram](readmeAssets/ListenDB.png)
 
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
