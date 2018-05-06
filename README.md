@@ -75,11 +75,11 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 
 ## Requirements
 * Authentication
-  * Main App account: ASP.NET Web API 2.2 Authentication
+  * Main App account: Firebase Authentication
   * Spotify Tethering: May need to OAUTH through Spotify API; however, this is an advanced future feature
-  * CAPTCHA to eliminate/reduce spam bots; advanced future feature
+  * CAPTCHA to eliminate/reduce spam bots; advanced future feature (?)
   * Password recovery
-  * Log in lock-out (6 failed attempts) 30 minute penalty
+  * Log in lock-out (6 failed attempts) 30 minute penalty (?)
 * Editable User account items:
   * Username (requires re-authentication)
   * Email account (requires re-authentication)
@@ -156,26 +156,26 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 
 ## Non-Functional Requirements
 * Mobile App Back-end
-  * ASP.NET Mobile App service
+  * Google Firebase
 * Storage Requirements
-  * Local DB to store currently visible data (optimize look up and reduce strain on API server)
-  * Azure DB to store online data
+  * Local DB to store currently visible data (optimize look up and reduce strain on API server): Advanced Feature
+  * Firestore DB to store online data
 * User Access Controls
-  * ASP.NET Mobile App Service Authentication (main)
+  * Firebase Authentication (main)
   * Possibly add in Spotify OAUTH as required
 * Database System
-  * MS SQL hosted in Microsoft Azure
+  * Firestore NoSQL DB
   * Contains:
-    * Authentication/User Account Table
-    * User Profile Table
-    * Posts Table
-    * Messages Table
-    * Reports Table
-    * Admin Actions Log Table
+    * User Profile collection
+    * Posts collection
+    * Messages collection
+    * Reports collection
+    * Admin Actions Log collection
+    * Friends List collection
 * Other
   * Android Smartphone with touch capabilities (OS version Kit-Kat 4.4 or better)
   * Spotify account (may require premium, further research required)
-  * Valid E-mail account
+  * Google account
   * Access to data network/Wi-Fi
 <!-- More Non-Functional Requirements Here As Required -->
 
@@ -183,11 +183,10 @@ For music lovers who do not have Facebook, the listen app is a social media plat
 
 ## Risks
 * Have to learn the Android Development Framework
-* Have to learn Kotlin Language
 * Have to learn how to deploy a mobile app with a cloud-based backend
 * Have to learn how to authenticate a user to my app and tie that profile to a Spotify account
 * Have to learn how to properly utilize the Spotify API (possibly the SDK)
-* Familiarize with ASP.NET Mobile App Service including authentication
+* Familiarize with Firebase/Firestore including authentication
 
 [Table of Contents](https://github.com/skoliver89/listen#table-of-contents)
 
