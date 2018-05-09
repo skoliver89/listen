@@ -29,14 +29,21 @@ public class ProfileActivity extends MenuActivity {
         startActivity(intent);
     }
 
+    public  void showFriendsList(){
+        Intent intent = new Intent(this, FriendsActivity.class);
+        startActivity(intent);
+    }
+
     // ### Overrides
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        FloatingActionButton edit = findViewById(R.id.editProfileActionButton);
+        FloatingActionButton friends = findViewById(R.id.friendsButton);
         final TextView aliasText = findViewById(R.id.profileAlias);
         final TextView bioText = findViewById(R.id.profileBio);
-        final FloatingActionButton edit = findViewById(R.id.editProfileActionButton);
+
         if(user != null){
             final String uid = user.getUid();
             DocumentReference profRef = db.collection("profiles").document(uid);
@@ -59,14 +66,21 @@ public class ProfileActivity extends MenuActivity {
                     }
                 }
             });
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showEditProfile();
-                }
-            });
+
         }
         else { Log.d(TAG, "User failed to load"); }
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEditProfile();
+            }
+        });
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFriendsList();
+            }
+        });
     }
 }
