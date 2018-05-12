@@ -47,30 +47,7 @@ public class AccountActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        AuthUI.getInstance()
-                                                .signOut(getApplicationContext())
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        // After sign out restart the app -> login prompt
-                                                        Intent i = getBaseContext().getPackageManager()
-                                                                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-                                                        if (i != null) {
-                                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        }
-                                                        startActivity(i);
-                                                    }
-                                                });
-                                    }
-                                    else {
-                                        Log.d(TAG, "Failed to delete the user from auth");
-                                    }
-                                }
-                            });
+                            deleteUser();
                         }
                         else{
                             Log.d(TAG, "Failed to delete the user profile.");
@@ -91,6 +68,37 @@ public class AccountActivity extends AppCompatActivity {
         // Create the alert
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    public void deleteUser(){
+        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    AuthUI.getInstance()
+                            .signOut(getApplicationContext())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    // After sign out restart the app
+                                    Intent i = getBaseContext()
+                                            .getPackageManager()
+                                            .getLaunchIntentForPackage(
+                                                    getBaseContext()
+                                                            .getPackageName() );
+                                    if (i != null) {
+                                        i.addFlags(Intent
+                                                .FLAG_ACTIVITY_CLEAR_TOP);
+                                    }
+                                    startActivity(i);
+                                }
+                            });
+                }
+                else {
+                    Log.d(TAG, "Failed to delete the user from auth");
+                }
+            }
+        });
     }
 
     // ## Overrides
