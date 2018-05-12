@@ -39,7 +39,6 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
         String uid = user.getUid();
-        LinearLayout friendsList = findViewById(R.id.friendsList);
         final List<String> fAlias = new ArrayList<>();
         final List<String> fUID = new ArrayList<>();
         CollectionReference friendsRef = db.collection("profile")
@@ -59,7 +58,9 @@ public class FriendsActivity extends AppCompatActivity {
                 else { Log.d(TAG, "Error getting Friends List: ", task.getException()); }
             }
         });
-
+        for (String alias : fAlias){
+            Log.d(TAG, "Friend Alias: " + alias);
+        }
 
     }
 }
