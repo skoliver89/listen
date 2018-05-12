@@ -35,10 +35,10 @@
         </activity>
         <activity
             android:name=".FriendProfileActivity"
-            android:parentActivityName=".ProfileActivity">
+            android:parentActivityName=".FriendsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfileActivity" />
+                android:value=".FriendsActivity" />
         </activity>
     </application>
 

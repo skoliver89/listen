@@ -1,5 +1,7 @@
 package com.example.listen;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,11 @@ import java.util.List;
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
 
     public List<Friends> friendsList;
-    public FriendsListAdapter(List<Friends> friendsList){
+    private Context mContext;
+
+    public FriendsListAdapter(Context context, List<Friends> friendsList){
         this.friendsList = friendsList;
+        mContext = context;
     }
 
     @Override
@@ -24,8 +29,18 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.aliasText.setText(friendsList.get(position).getAlias());
+
+        //Make the items clickable
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, FriendProfileActivity.class);
+                intent.putExtra("friendUID", friendsList.get(position).getFriendUID());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -48,7 +48,7 @@ public class FriendsActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FriendsListAdapter(friendsList);
+        mAdapter = new FriendsListAdapter(this,friendsList);
         mRecyclerView.setAdapter(mAdapter);
 
         // Get the data (aliases)
