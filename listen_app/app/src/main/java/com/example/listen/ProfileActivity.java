@@ -40,7 +40,7 @@ public class ProfileActivity extends MenuActivity {
         setContentView(R.layout.activity_profile);
         FloatingActionButton edit = findViewById(R.id.editProfileActionButton);
         FloatingActionButton friends = findViewById(R.id.friendsButton);
-        final TextView aliasText = findViewById(R.id.profileAlias);
+        final TextView aliasText = findViewById(R.id.friend_prof_alias);
         final TextView bioText = findViewById(R.id.profileBio);
 
         if(user != null){
