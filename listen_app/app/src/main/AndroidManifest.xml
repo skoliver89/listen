@@ -26,6 +26,14 @@
         <activity android:name=".NewUserProfile" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".FriendsActivity"
+            android:parentActivityName=".ProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfileActivity" />
+        </activity>
+
     </application>
 
 </manifest>
