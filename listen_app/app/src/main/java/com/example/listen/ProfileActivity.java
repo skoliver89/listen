@@ -82,4 +82,10 @@ public class ProfileActivity extends MenuActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+
+        return;
+    }
 }
