@@ -13,4 +13,5 @@
     <string name="delete">Delete</string>
     <string name="friends">Friends</string>
     <string name="status_desc">Status Icon Image</string>
+    <string name="msg_hint">Enter a short message</string>
 </resources>
