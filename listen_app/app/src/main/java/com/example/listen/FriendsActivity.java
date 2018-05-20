@@ -238,6 +238,8 @@ public class FriendsActivity extends AppCompatActivity {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                     if (doc.getType() == DocumentChange.Type.ADDED){
                         Friends friends = doc.getDocument().toObject(Friends.class);
+                        String uid = doc.getDocument().getId();
+                        friends.setFriendUID(uid);
                         friendsList.add(friends);
                         mAdapter.notifyDataSetChanged();
                     }
