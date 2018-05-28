@@ -39,14 +39,11 @@ import java.util.Map;
 //References: https://developer.android.com/guide/topics/ui/layout/recyclerview#java
 //            https://www.youtube.com/watch?v=kyGVgrLG3KU&t=2s
 public class FriendsActivity extends AppCompatActivity {
-
     // ### Class Variables
     private static final String TAG = FriendsActivity.class.getSimpleName();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     private RecyclerView.Adapter mAdapter;
-
     private List<Friend> friendsList;
 
     // ### Custom Methods

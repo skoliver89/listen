@@ -13,7 +13,7 @@ public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapte
     public List<Friend> requestList;
     private Context mContext;
 
-    public RequestsListAdapter(List<Friend> requestList, Context mContext) {
+    public RequestsListAdapter(Context mContext, List<Friend> requestList) {
         this.requestList = requestList;
         this.mContext = mContext;
     }
