@@ -1,6 +1,7 @@
 package com.example.listen;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -198,6 +199,13 @@ public class FriendsActivity extends AppCompatActivity {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    // Bring up the activity containing a list of pending friend requests
+    private void showRequests(){
+        Intent intent = new Intent(this, RequestsActivity.class);
+
+        startActivity(intent);
+    }
+
     // ### Overrides
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +213,7 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         FloatingActionButton addFriend = findViewById(R.id.addFriendButton);
+        FloatingActionButton requests = findViewById(R.id.pendingRequestsButton);
 
         friendsList = new ArrayList<>();
 
@@ -244,6 +253,12 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addFriend();
+            }
+        });
+        requests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRequests();
             }
         });
     }
