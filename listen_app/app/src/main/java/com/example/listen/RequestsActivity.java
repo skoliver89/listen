@@ -64,6 +64,7 @@ public class RequestsActivity extends AppCompatActivity {
                     for (DocumentChange doc : documentSnapshots.getDocumentChanges()){
                         switch (doc.getType()){
                             case ADDED:
+                                // Notify Adapter of new item and add it to the list
                                 request = doc.getDocument().toObject(Friend.class);
                                 uid = doc.getDocument().getId();
                                 request.setUid(uid);
@@ -74,6 +75,7 @@ public class RequestsActivity extends AppCompatActivity {
                                 //TODO Notify adapter of changes
                                 break;
                             case REMOVED:
+                                // Notify Adapter of removed item and remove it from the list
                                 //TODO Make changes without Refresh View
                                 request = doc.getDocument().toObject(Friend.class);
                                 uid = doc.getDocument().getId();
