@@ -9,12 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapter.ViewHolder> {
     // ### Class Variables
     public List<Friend> requestList;
     private Context mContext;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     // ### Constructors
     public RequestsListAdapter(Context mContext, List<Friend> requestList) {
@@ -23,7 +29,7 @@ public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapte
     }
 
     // ### Custom Methods
-    private void requestAction(String uid, String alias){
+    private void requestAction(final String uid, String alias){
         // Create the Dialog for accepting or denying a request
         AlertDialog.Builder requestDialog = new AlertDialog
                 .Builder(mContext);
@@ -40,7 +46,7 @@ public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapte
         requestDialog.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                //TODO Accept button logic
             }
         });
 
@@ -48,7 +54,9 @@ public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapte
         requestDialog.setNegativeButton("Deny", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                //Delete the request
+                db.collection("profiles").document(user.getUid()).collection("requests")
+                        .document(uid).delete();
             }
         });
 
@@ -73,7 +81,6 @@ public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapte
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Dialog to accept or deny friend requests
                 String uid = requestList.get(position).getUid();
                 String alias = requestList.get(position).getAlias();
                 requestAction(uid, alias);

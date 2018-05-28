@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +40,7 @@ public class RequestsActivity extends AppCompatActivity {
         requestList = new ArrayList<>();
 
         // Initialize the RecyclerView Layout and Adapter
-        RecyclerView mRecyclerView = findViewById(R.id.request_list);
+        final RecyclerView mRecyclerView = findViewById(R.id.request_list);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -57,18 +59,33 @@ public class RequestsActivity extends AppCompatActivity {
                 if (e != null) {
                     Log.d(TAG, "Error: " + e.getMessage());
                 }
-                else{
+                    Friend request;
+                    String uid;
                     for (DocumentChange doc : documentSnapshots.getDocumentChanges()){
-                        if (doc.getType() == DocumentChange.Type.ADDED){
-                            Friend request = doc.getDocument().toObject(Friend.class);
-                            String uid = doc.getDocument().getId();
-                            request.setUid(uid);
-                            requestList.add(request);
-                            mAdapter.notifyDataSetChanged();
+                        switch (doc.getType()){
+                            case ADDED:
+                                request = doc.getDocument().toObject(Friend.class);
+                                uid = doc.getDocument().getId();
+                                request.setUid(uid);
+                                requestList.add(request);
+                                mAdapter.notifyDataSetChanged();
+                                break;
+                            case MODIFIED:
+                                //TODO Notify adapter of changes
+                                break;
+                            case REMOVED:
+                                //TODO Make changes without Refresh View
+                                request = doc.getDocument().toObject(Friend.class);
+                                uid = doc.getDocument().getId();
+                                request.setUid(uid);
+                                requestList.remove(request);
+                                mAdapter.notifyDataSetChanged();
+                                // Refresh View
+                                finish();
+                                startActivity(getIntent());
+                                break;
                         }
                     }
-                }
-
             }
         });
     }
