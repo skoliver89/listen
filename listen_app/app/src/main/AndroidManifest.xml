@@ -40,6 +40,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FriendsActivity" />
         </activity>
+        <activity
+            android:name=".RequestsActivity"
+            android:parentActivityName=".FriendsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FriendsActivity" />
+        </activity>
     </application>
 
 </manifest>
