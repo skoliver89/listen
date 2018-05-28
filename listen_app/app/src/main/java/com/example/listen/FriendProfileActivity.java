@@ -1,22 +1,16 @@
 package com.example.listen;
 
-import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.w3c.dom.Text;
 
 public class FriendProfileActivity extends AppCompatActivity {
     // ## Class Variables
@@ -26,8 +20,8 @@ public class FriendProfileActivity extends AppCompatActivity {
     // ## Custom Methods
     private String getFriendUID(){
         String friendUID = null;
-        if(getIntent().hasExtra("friendUID")){
-            friendUID = getIntent().getStringExtra("friendUID");
+        if(getIntent().hasExtra("uid")){
+            friendUID = getIntent().getStringExtra("uid");
         }
 
         return friendUID;

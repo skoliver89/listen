@@ -1,9 +1,9 @@
 package com.example.listen;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ public class NewUserProfile extends AppCompatActivity {
     private static final String TAG = "NewUserProfile";
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     // ### Custom Methods
 
@@ -80,6 +83,7 @@ public class NewUserProfile extends AppCompatActivity {
                 Map<String, Object> profData = new HashMap<>();
                 profData.put("alias", alias);
                 profData.put("bio", bio);
+                profData.put("email", user.getEmail());
                 //Create the Profile Document for the user in FireStore
                 //On Success Load the profile view
                 db.collection("profiles").document(uid)
