@@ -12,10 +12,10 @@ import java.util.List;
 
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
 
-    public List<Friends> friendsList;
+    public List<Friend> friendsList;
     private Context mContext;
 
-    public FriendsListAdapter(Context context, List<Friends> friendsList){
+    public FriendsListAdapter(Context context, List<Friend> friendsList){
         this.friendsList = friendsList;
         mContext = context;
     }
@@ -37,7 +37,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, FriendProfileActivity.class);
-                intent.putExtra("friendUID", friendsList.get(position).getFriendUID());
+                intent.putExtra("uid", friendsList.get(position).getUid());
                 mContext.startActivity(intent);
             }
         });

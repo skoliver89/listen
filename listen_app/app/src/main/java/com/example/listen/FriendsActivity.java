@@ -47,7 +47,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter mAdapter;
 
-    private List<Friends> friendsList;
+    private List<Friend> friendsList;
 
     // ### Custom Methods
 
@@ -188,10 +188,6 @@ public class FriendsActivity extends AppCompatActivity {
                         else { Log.d(TAG, "Failed to get document..."); }
                     }
                 });
-
-        //Toast.makeText(FriendsActivity.this, myAlias, Toast.LENGTH_SHORT).show();
-
-       /* */
     }
 
     // Check if a given uid is the same as the uid of the current user
@@ -237,9 +233,9 @@ public class FriendsActivity extends AppCompatActivity {
 
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                     if (doc.getType() == DocumentChange.Type.ADDED){
-                        Friends friends = doc.getDocument().toObject(Friends.class);
+                        Friend friends = doc.getDocument().toObject(Friend.class);
                         String uid = doc.getDocument().getId();
-                        friends.setFriendUID(uid);
+                        friends.setUid(uid);
                         friendsList.add(friends);
                         mAdapter.notifyDataSetChanged();
                     }
