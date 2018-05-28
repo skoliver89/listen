@@ -20,8 +20,8 @@ public class FriendProfileActivity extends AppCompatActivity {
     // ## Custom Methods
     private String getFriendUID(){
         String friendUID = null;
-        if(getIntent().hasExtra("friendUID")){
-            friendUID = getIntent().getStringExtra("friendUID");
+        if(getIntent().hasExtra("uid")){
+            friendUID = getIntent().getStringExtra("uid");
         }
 
         return friendUID;

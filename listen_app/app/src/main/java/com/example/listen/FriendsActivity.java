@@ -1,6 +1,7 @@
 package com.example.listen;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,15 +40,12 @@ import java.util.Map;
 //References: https://developer.android.com/guide/topics/ui/layout/recyclerview#java
 //            https://www.youtube.com/watch?v=kyGVgrLG3KU&t=2s
 public class FriendsActivity extends AppCompatActivity {
-
     // ### Class Variables
     private static final String TAG = FriendsActivity.class.getSimpleName();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     private RecyclerView.Adapter mAdapter;
-
-    private List<Friends> friendsList;
+    private List<Friend> friendsList;
 
     // ### Custom Methods
 
@@ -188,10 +186,6 @@ public class FriendsActivity extends AppCompatActivity {
                         else { Log.d(TAG, "Failed to get document..."); }
                     }
                 });
-
-        //Toast.makeText(FriendsActivity.this, myAlias, Toast.LENGTH_SHORT).show();
-
-       /* */
     }
 
     // Check if a given uid is the same as the uid of the current user
@@ -205,6 +199,13 @@ public class FriendsActivity extends AppCompatActivity {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    // Bring up the activity containing a list of pending friend requests
+    private void showRequests(){
+        Intent intent = new Intent(this, RequestsActivity.class);
+
+        startActivity(intent);
+    }
+
     // ### Overrides
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +213,7 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         FloatingActionButton addFriend = findViewById(R.id.addFriendButton);
+        FloatingActionButton requests = findViewById(R.id.pendingRequestsButton);
 
         friendsList = new ArrayList<>();
 
@@ -237,9 +239,9 @@ public class FriendsActivity extends AppCompatActivity {
 
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                     if (doc.getType() == DocumentChange.Type.ADDED){
-                        Friends friends = doc.getDocument().toObject(Friends.class);
+                        Friend friends = doc.getDocument().toObject(Friend.class);
                         String uid = doc.getDocument().getId();
-                        friends.setFriendUID(uid);
+                        friends.setUid(uid);
                         friendsList.add(friends);
                         mAdapter.notifyDataSetChanged();
                     }
@@ -251,6 +253,12 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addFriend();
+            }
+        });
+        requests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRequests();
             }
         });
     }

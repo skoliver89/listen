@@ -12,5 +12,6 @@
     <string name="bioFieldHint">Bio: What is special about you?</string>
     <string name="delete">Delete</string>
     <string name="friends">Friends</string>
+    <string name="requests">Requests</string>
     <string name="status_desc">Status Icon Image</string>
 </resources>
